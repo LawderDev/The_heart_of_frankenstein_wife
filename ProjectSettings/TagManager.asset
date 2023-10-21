@@ -6,7 +6,10 @@ TagManager:
   tags:
   - Ground
   - TargetObject
+<<<<<<< HEAD
   - Projectile
+=======
+>>>>>>> 0b266ae06739203efbfa0cfa38b1f70c21ae0a37
   - Ennemy
   layers:
   - Default
