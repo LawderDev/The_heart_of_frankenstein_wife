@@ -13,28 +13,39 @@ public class PlayerAttack : MonoBehaviour
     private float cooldownDashTimer = Mathf.Infinity;
 
     private Rigidbody2D rb;
+    private BoxCollider2D[] colliders;
+    private BoxCollider2D dashCollider;
+    private PlayerHealth playerHealth;
 
     [SerializeField] private bool canDash = true;
     [SerializeField] private bool isDashing = false;
+
+    [SerializeField] private float dashingDamage = 65f;
     [SerializeField] private float dashingPower = 24f;
     [SerializeField] private float dashingTime = 0f;
-    [SerializeField] private float dashingDuration = 10f;
+    [SerializeField] private float dashingDuration = 0.5f;
     [SerializeField] private float dashCooldown = 1f;
 
+    public float getDashingDamage(){
+        return dashingDamage;
+    }
 
     private void Awake()
     {
+        playerHealth = GetComponent<PlayerHealth>();
         rb = GetComponent<Rigidbody2D>();
+        colliders = GetComponents<BoxCollider2D>();
+        foreach (BoxCollider2D collider in colliders)
+        {
+            if (collider.isTrigger)
+            {
+                dashCollider = collider;
+            }
+        }
     }
 
     private void Update()
     {
-        if (Input.GetMouseButton(0) && cooldownAttackTimer > attackCooldown)
-            Attack();
-
-        if (Input.GetMouseButtonDown(1) && cooldownDashTimer > dashCooldown)
-           Skill();
-
         if(isDashing){
             if(transform.localScale.x > 0)
                 rb.velocity = new Vector2(dashingPower, rb.velocity.y);
@@ -44,8 +55,15 @@ public class PlayerAttack : MonoBehaviour
             dashingTime += Time.deltaTime;
             if(dashingTime > dashingDuration){
                 isDashing = false;
+                dashCollider.enabled = false;
                 dashingTime = 0;
             }
+        }else{
+            if (Input.GetMouseButton(0) && cooldownAttackTimer > attackCooldown)
+                Attack();
+
+            if (Input.GetMouseButtonDown(1) && cooldownDashTimer > dashCooldown)
+                Skill();
         }
         cooldownAttackTimer += Time.deltaTime;
         cooldownDashTimer += Time.deltaTime;
@@ -71,6 +89,8 @@ public class PlayerAttack : MonoBehaviour
 
     private void Skill()
     {
+        playerHealth.setInvinsibility(true);
+        dashCollider.enabled = true;
         isDashing = true;
         cooldownDashTimer = 0;
     }
