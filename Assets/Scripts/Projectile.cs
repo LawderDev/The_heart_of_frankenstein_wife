@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class Projectile : MonoBehaviour
 {
-    [SerializeField] private float speed;
-     [SerializeField] private float limitLifeTime;
+    [SerializeField] private float speed = 10;
+    [SerializeField] private float limitLifeTime = 10;
+    [SerializeField] private float damage = 20;
+
     private float direction;
     private bool hit;
     private float lifetime;
@@ -27,10 +29,19 @@ public class Projectile : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        /*hit = true;
-        boxCollider.enabled = false;
-        Deactivate();*/
+        if (collision.gameObject.CompareTag("Ennemy"))
+        {
+            print("HIT : Projectile");
+            hit = true;
+            //boxCollider.enabled = false;
+            EnnemySimple ennemy = collision.gameObject.GetComponent<EnnemySimple>();
+            ennemy.TakeDamage(damage);
+            print(ennemy.health);
+            Deactivate();
+        }
+
     }
+
     public void SetDirection(float _direction)
     {
         lifetime = 0;

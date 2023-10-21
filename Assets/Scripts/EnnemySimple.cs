@@ -6,7 +6,7 @@ public class EnnemySimple : MonoBehaviour
 {
 
     public int maxHealth = 100;
-    public int health;
+    public float health;
     public int damage = 5;
     public HeartHealth heart;
     public PlayerHealth player;
@@ -17,7 +17,7 @@ public class EnnemySimple : MonoBehaviour
     float _lastAttackTimePlayer;
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         health = maxHealth;
     }
@@ -45,8 +45,9 @@ public class EnnemySimple : MonoBehaviour
         }
     }
 
-    void TakeDamage(int playerDamage){
+    public void TakeDamage(float damage){
         health -= damage;
+        print(health);
         if (health <= 0){
             Die();
         }
