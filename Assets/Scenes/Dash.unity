@@ -2873,6 +2873,8 @@ MonoBehaviour:
   dashingTime: 0
   dashingDuration: 0.25
   dashCooldown: 2
+  ultiCooldown: 60
+  ultiDammage: 100
 --- !u!114 &1305057284
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -11,11 +11,13 @@ public class PlayerAttack : MonoBehaviour
     
     private float cooldownAttackTimer = Mathf.Infinity;
     private float cooldownDashTimer = Mathf.Infinity;
+    private float cooldownUltiTimer = Mathf.Infinity;
 
     private Rigidbody2D rb;
     private BoxCollider2D[] colliders;
     private BoxCollider2D dashCollider;
     private PlayerHealth playerHealth;
+    private GameObject[] objectsWithTag;
 
     [SerializeField] private bool canDash = true;
     [SerializeField] private bool isDashing = false;
@@ -25,6 +27,8 @@ public class PlayerAttack : MonoBehaviour
     [SerializeField] private float dashingTime = 0f;
     [SerializeField] private float dashingDuration = 0.5f;
     [SerializeField] private float dashCooldown = 1f;
+    [SerializeField] private float ultiCooldown = 5f;
+    [SerializeField] private float ultiDammage = 100f;
 
     public float getDashingDamage(){
         return dashingDamage;
@@ -61,10 +65,13 @@ public class PlayerAttack : MonoBehaviour
         }else{
             if (Input.GetMouseButton(0) && cooldownAttackTimer > attackCooldown)
                 Attack();
-
             if (Input.GetMouseButtonDown(1) && cooldownDashTimer > dashCooldown)
                 Skill();
+            if(Input.GetKeyDown(KeyCode.R) && cooldownUltiTimer > ultiCooldown)
+                Ulti();
         }
+
+        cooldownUltiTimer += Time.deltaTime;
         cooldownAttackTimer += Time.deltaTime;
         cooldownDashTimer += Time.deltaTime;
     }
@@ -93,5 +100,16 @@ public class PlayerAttack : MonoBehaviour
         dashCollider.enabled = true;
         isDashing = true;
         cooldownDashTimer = 0;
+    }
+
+    private void Ulti()
+    {
+        objectsWithTag = GameObject.FindGameObjectsWithTag("Ennemy");
+        foreach (GameObject enemy in objectsWithTag)
+        {
+          EnnemySimple enemySimple = enemy.GetComponent<EnnemySimple>();
+          enemySimple.TakeDamage(ultiDammage);
+        }
+        cooldownUltiTimer = 0;
     }
 }
