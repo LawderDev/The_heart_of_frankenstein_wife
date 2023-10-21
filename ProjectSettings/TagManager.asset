@@ -4,7 +4,9 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - Ground
+  - Undefined
+  - TargetObject
+  - Ennemy
   layers:
   - Default
   - TransparentFX
