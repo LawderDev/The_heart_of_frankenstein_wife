@@ -11,7 +11,9 @@ public class TargetFollow : MonoBehaviour
     private void Start()
     {
         // Find the target GameObject by name or tag
-        target = GameObject.Find("TargetObject").transform;
+        GameObject targetObject = GameObject.FindWithTag("TargetObject");
+        target = targetObject.transform;
+
         rb = GetComponent<Rigidbody2D>();
     }
 

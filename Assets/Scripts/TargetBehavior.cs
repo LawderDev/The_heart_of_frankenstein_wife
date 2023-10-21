@@ -9,7 +9,9 @@ public class TargetBehavior : MonoBehaviour
     private void Start()
     {
         // Find the target GameObject by name or tag
-        target = GameObject.Find("TargetObject").transform;
+        GameObject targetObject = GameObject.FindWithTag("TargetObject");
+        target = targetObject.transform;
+
     }
 
     private void Update()
