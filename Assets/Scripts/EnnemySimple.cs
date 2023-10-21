@@ -20,6 +20,8 @@ public class EnnemySimple : MonoBehaviour
     void Start()
     {
         health = maxHealth;
+        heart = GameObject.Find("Heart").GetComponent<HeartHealth>();
+        player = GameObject.Find("Grid/Player").GetComponent<PlayerHealth>();
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
