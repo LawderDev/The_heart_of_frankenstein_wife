@@ -9,9 +9,9 @@ public class PlayerAttack : MonoBehaviour
     [SerializeField] private Transform projectilePoint;
     [SerializeField] private GameObject[] projectiles;
 
-    [SerializeField] private float attackTensionDecrementation;
-    [SerializeField] private float skillTensionDecrementation;
-    [SerializeField] private float ultiTensionDecrementation;
+    [SerializeField] private float attackTensionDecrementation = 0;
+    [SerializeField] private float skillTensionDecrementation = 5;
+    [SerializeField] private float ultiTensionDecrementation = 100;
     private float cooldownAttackTimer = Mathf.Infinity;
     private float cooldownDashTimer = Mathf.Infinity;
     private float cooldownUltiTimer = Mathf.Infinity;

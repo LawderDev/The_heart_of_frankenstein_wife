@@ -6,17 +6,25 @@ public class PlayerTension : MonoBehaviour
 {
     private float tension = 10;
     [SerializeField] float tensionIncrementValue = 1f;
+    [SerializeField] private TensionBarUI tensionBar;
     private GameObject[] objectsWithTag;
+    private GameObject[] barricadeWithTag;
     private int countEnnemiesOnField;
+    private int countBarricadeOnField;
+    private int downBarri = 0;
     // Start is called before the first frame update
     private void Start()
     {
         InvokeRepeating("IncreaseTension", 1.0f, 1.0f); // Appel de la fonction toutes les 1 seconde après 1 seconde initiale
+        tensionBar.setTension(tension);
     }
 
     private void tensionEnnemies(){
         objectsWithTag = GameObject.FindGameObjectsWithTag("Ennemy");
         countEnnemiesOnField = objectsWithTag.Length;
+
+        barricadeWithTag = GameObject.FindGameObjectsWithTag("Barricade");
+        countBarricadeOnField = objectsWithTag.Length;
 
         float incrementFactor = 0;
 
@@ -41,6 +49,18 @@ public class PlayerTension : MonoBehaviour
             incrementFactor = 0.35f;
         }
 
+        downBarri = 0;
+        foreach(GameObject b in barricadeWithTag){
+            if (b.GetComponent<BoxCollider2D>().enabled == false){
+                downBarri += 1;
+            }
+        }
+        if (downBarri > 0){
+            Debug.Log("DownBarri: " + downBarri);
+            incrementFactor = incrementFactor * downBarri;
+            Debug.Log("IncrementFactor: " + incrementFactor);
+        }
+
         if (tension + tensionIncrementValue + (tensionIncrementValue * incrementFactor) > 100)
         {
             tension = 100;
@@ -57,6 +77,7 @@ public class PlayerTension : MonoBehaviour
         }else{
             tension = 10;
         }
+        tensionBar.setTension(tension);
     }
 
     public float getTension(){
@@ -66,6 +87,7 @@ public class PlayerTension : MonoBehaviour
     private void IncreaseTension()
     {
         tensionEnnemies();
+        tensionBar.setTension(tension);
         Debug.Log("TENSION: " + tension);
     }
 
