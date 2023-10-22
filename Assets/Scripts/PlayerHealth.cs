@@ -48,7 +48,10 @@ public class PlayerHealth : MonoBehaviour
         {
             Die();
         }
+    }
 
+    public int GetHealth(){
+       return currentHealth;
     }
 
     private void Update()
