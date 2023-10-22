@@ -46,7 +46,6 @@ public class PlayerMove : MonoBehaviour
     
     private void moveManagement(){
         horizontalInput = Input.GetAxis("Horizontal");
-
         //Flip player when moving left-right
 
         if (horizontalInput > 0.01f)

@@ -27,6 +27,7 @@ public class Projectile : MonoBehaviour
         lifetime += Time.deltaTime;
         if (lifetime > limitLifeTime) gameObject.SetActive(false);
     }
+    
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Ennemy"))

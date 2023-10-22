@@ -10,6 +10,7 @@ public class EnnemySimple : MonoBehaviour
     public int damage = 5;
     public HeartHealth heart;
     public PlayerHealth player;
+    public PlayerAttack playerAttack;
     public float attackCooldownHeart;
     public float attackCooldownPlayer;
 
@@ -22,6 +23,7 @@ public class EnnemySimple : MonoBehaviour
         health = maxHealth;
         heart = GameObject.Find("Heart").GetComponent<HeartHealth>();
         player = GameObject.Find("Grid/Player").GetComponent<PlayerHealth>();
+        playerAttack = GameObject.Find("Grid/Player").GetComponent<PlayerAttack>();
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -33,6 +35,15 @@ public class EnnemySimple : MonoBehaviour
             print("ATTACKED : PLAYER");
             player.TakeDamage(damage);
             _lastAttackTimePlayer = Time.time;
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collider)
+    {
+        if (collider.gameObject.CompareTag("Player"))
+        {
+            print("SKILL DAMAGE");
+            TakeDamage(playerAttack.getDashingDamage());
         }
     }
 
