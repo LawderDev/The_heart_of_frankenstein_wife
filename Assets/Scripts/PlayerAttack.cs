@@ -9,13 +9,14 @@ public class PlayerAttack : MonoBehaviour
     [SerializeField] private Transform projectilePoint;
     [SerializeField] private GameObject[] projectiles;
 
-    [SerializeField] private float attackTensionDecrementation;
-    [SerializeField] private float skillTensionDecrementation;
-    [SerializeField] private float ultiTensionDecrementation;
+    [SerializeField] private float attackTensionDecrementation = 0;
+    [SerializeField] private float skillTensionDecrementation = 5;
+    [SerializeField] private float ultiTensionDecrementation = 100;
     private float cooldownAttackTimer = Mathf.Infinity;
     private float cooldownDashTimer = Mathf.Infinity;
     private float cooldownUltiTimer = Mathf.Infinity;
-
+    private CooldownSkillUi cooldownSkillUi;
+    private CooldownUltiUi cooldownUltiUi;
     private Rigidbody2D rb;
     private BoxCollider2D[] colliders;
     private BoxCollider2D dashCollider;
@@ -44,6 +45,8 @@ public class PlayerAttack : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         colliders = GetComponents<BoxCollider2D>();
         playerTension = GetComponent<PlayerTension>();
+        cooldownSkillUi = GetComponent<CooldownSkillUi>();
+        cooldownUltiUi = GetComponent<CooldownUltiUi>();
         foreach (BoxCollider2D collider in colliders)
         {
             if (collider.isTrigger)
@@ -106,18 +109,30 @@ public class PlayerAttack : MonoBehaviour
         dashCollider.enabled = true;
         isDashing = true;
         cooldownDashTimer = 0;
+        cooldownSkillUi.SetCooldown(dashCooldown);
     }
 
     private void Ulti()
     {
         playerTension.decrementTension(ultiTensionDecrementation);
 
-        objectsWithTag = GameObject.FindGameObjectsWithTag("Ennemy");
-        foreach (GameObject enemy in objectsWithTag)
+        Camera mainCamera = Camera.main;
+        Vector3 cameraPosition = mainCamera.transform.position;
+        Vector2 cameraSize = new Vector2(mainCamera.orthographicSize * 2 * mainCamera.aspect, mainCamera.orthographicSize * 2);
+
+        Vector2 cameraPosition2D = new Vector2(cameraPosition.x, cameraPosition.y); // Conversion en Vector2
+        Collider2D[] colliders = Physics2D.OverlapAreaAll(cameraPosition2D - cameraSize / 2, cameraPosition2D + cameraSize / 2);
+        foreach (Collider2D collider in colliders)
         {
-          EnnemySimple enemySimple = enemy.GetComponent<EnnemySimple>();
-          enemySimple.TakeDamage(ultiDammage);
+            if (collider.CompareTag("Ennemy"))
+            {
+                EnnemySimple enemySimple = collider.GetComponent<EnnemySimple>();
+                enemySimple.TakeDamage(ultiDammage);
+                Destroy(collider.gameObject);
+            }
         }
+
         cooldownUltiTimer = 0;
+        cooldownUltiUi.SetCooldown(ultiCooldown);
     }
 }

@@ -30,17 +30,18 @@ public class Projectile : MonoBehaviour
     
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("Ennemy"))
-        {
-            print("HIT : Projectile");
+         if (!collision.gameObject.CompareTag("Player")){
             hit = true;
-            //boxCollider.enabled = false;
-            EnnemySimple ennemy = collision.gameObject.GetComponent<EnnemySimple>();
-            ennemy.TakeDamage(damage);
-            print(ennemy.health);
+            if (collision.gameObject.CompareTag("Ennemy"))
+            {
+                print("HIT : Projectile");
+                //boxCollider.enabled = false;
+                EnnemySimple ennemy = collision.gameObject.GetComponent<EnnemySimple>();
+                ennemy.TakeDamage(damage);
+                print(ennemy.health);
+            }
             Deactivate();
-        }
-
+         }
     }
 
     public void SetDirection(float _direction)

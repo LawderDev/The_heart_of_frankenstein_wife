@@ -58,7 +58,6 @@ public class EnnemySimple : MonoBehaviour
     {
         if (collider.gameObject.CompareTag("Player"))
         {
-            print("SKILL DAMAGE");
             TakeDamage(playerAttack.getDashingDamage());
         }
     }
@@ -83,7 +82,6 @@ public class EnnemySimple : MonoBehaviour
                 // Compare the BarricadeHealth component to specific instances
                 if (bh.name == "BarricadeLeftDown")
                 {
-                    print("ATTACKED : BLD");
                     bLD.TakeDamage(damageBarricade);
                 }
                 else if (bh.name == "BarricadeLeftUp")
