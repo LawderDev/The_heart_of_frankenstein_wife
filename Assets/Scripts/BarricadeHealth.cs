@@ -26,14 +26,12 @@ public class BarricadeHealth : MonoBehaviour
         if(box.enabled == false && currentHealth > 0){
             box.enabled = true;
             renderer.sprite = sp3;
-
         }
     }
 
     public void TakeDamage(int damage)
     {
         SetHealth(-damage);
-        print(currentHealth);
     }
 
     public void SetHealth(int healthChange){

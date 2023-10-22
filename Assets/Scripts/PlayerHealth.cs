@@ -68,7 +68,7 @@ public class PlayerHealth : MonoBehaviour
     {
         // Implement what should happen when the entity dies
         // For example, you can destroy the GameObject
-        print("GAME OVER : The HPlayer died");
+        print("GAME OVER : The Player died");
         Destroy(gameObject);
     }
 }
