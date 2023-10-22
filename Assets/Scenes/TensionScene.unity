@@ -2397,7 +2397,7 @@ Transform:
   m_GameObject: {fileID: 898498935}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.5583, y: -7.18, z: 0}
+  m_LocalPosition: {x: -0.38, y: -4.53, z: 0}
   m_LocalScale: {x: 6.06261, y: 2.200304, z: 0.5}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2687,8 +2687,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -9.3132e-10, y: -0.0000076293945}
-  m_SizeDelta: {x: 1751, y: 1203.55}
+  m_AnchoredPosition: {x: 17, y: -3.46}
+  m_SizeDelta: {x: 1751, y: 1422.9}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1062889888
 MonoBehaviour:
@@ -3009,7 +3009,7 @@ Transform:
   m_GameObject: {fileID: 1201254461}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.38, y: -5.6, z: 0}
+  m_LocalPosition: {x: 0.29, y: -3.14, z: 0}
   m_LocalScale: {x: 0.2, y: 0.2, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3267,6 +3267,7 @@ GameObject:
   - component: {fileID: 1305057283}
   - component: {fileID: 1305057284}
   - component: {fileID: 1305057285}
+  - component: {fileID: 1305057286}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -3428,6 +3429,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 10
   jumpForce: 20
+  percentageTension: 0.1
   maxJumps: 2
 --- !u!114 &1305057283
 MonoBehaviour:
@@ -3454,6 +3456,9 @@ MonoBehaviour:
   - {fileID: 1420140484}
   - {fileID: 319612214}
   - {fileID: 730032508}
+  attackTensionDecrementation: 0
+  skillTensionDecrementation: 15
+  ultiTensionDecrementation: 100
   canDash: 1
   isDashing: 0
   dashingDamage: 65
@@ -3522,6 +3527,19 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 50, y: 5.12}
   m_EdgeRadius: 0
+--- !u!114 &1305057286
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1305057277}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 88a8e5846b9b1a445b5b76662a207915, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tensionIncrementValue: 1
 --- !u!4 &1309051107 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2802005439249585773, guid: f02916eb4f6f69743a2092d72ee231e6, type: 3}
