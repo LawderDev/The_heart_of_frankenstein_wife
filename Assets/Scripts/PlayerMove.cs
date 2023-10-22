@@ -8,6 +8,9 @@ public class PlayerMove : MonoBehaviour
     [SerializeField] private float jumpForce;
     [SerializeField] private int maxJumps = 2; // Nombre maximal de sauts
 
+    [SerializeField] public SpriteRenderer renderer;
+    [SerializeField] public Sprite spL, spR, spaccL, spaccR;
+
     private float  initialColliderSizeY = 0;
     private Vector2 initialColliderOffset;
     private BoxCollider2D playerCollider;
@@ -24,6 +27,7 @@ public class PlayerMove : MonoBehaviour
         playerCollider = GetComponent<BoxCollider2D>();
         initialColliderSizeY = playerCollider.size.y;
         initialColliderOffset = playerCollider.offset;
+        renderer = GetComponent<SpriteRenderer>();
     }
 
 
@@ -76,12 +80,14 @@ public class PlayerMove : MonoBehaviour
     private void crouch(){
         playerCollider.size = new Vector2(playerCollider.size.x, playerCollider.size.y - initialColliderSizeY / 2f);
         playerCollider.offset = new Vector2(playerCollider.offset.x, playerCollider.offset.y - initialColliderSizeY / 4f);
+        renderer.sprite = spaccR;
         ctrlPressed = true;
     }
 
     private void cancelCrouch(){
         playerCollider.size = new Vector2(playerCollider.size.x, initialColliderSizeY);
         playerCollider.offset = initialColliderOffset;
+        renderer.sprite = spR;
         ctrlPressed = false;
     }
 

@@ -25,7 +25,7 @@ public class EntitySpawner : MonoBehaviour
     {
         for (int i = 0; i < numberOfEntities; i++)
         {
-            if (countEnnemiesOnField < maxEntitiesOnField){
+            if (countEnnemiesOnField < maxEntitiesOnField && countEnnemiesOnField > 0){
                 Vector3 spawnPosition = transform.position; // Adjust position as needed
             // Quaternion spawnRotation = Quaternion.Euler(0, Random.Range(0, 360), 0); // Adjust rotation as needed
 
