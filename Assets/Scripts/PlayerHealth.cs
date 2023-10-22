@@ -6,6 +6,8 @@ public class PlayerHealth : MonoBehaviour
 {
     public int maxHealth = 100;
     private int currentHealth;
+    [SerializeField]
+    private HealthBarPlayerUI healthBar;
 
     private bool invincibility = false;
     private float cooldownInvincibility = Mathf.Infinity;
@@ -14,6 +16,7 @@ public class PlayerHealth : MonoBehaviour
     private void Start()
     {
         currentHealth = maxHealth;
+        healthBar.SetMaxHealth(currentHealth);
     }
 
     public void setInvinsibility(bool value){
@@ -27,15 +30,25 @@ public class PlayerHealth : MonoBehaviour
     {
         if(!invincibility){
             print("PLAYER : DAMAGED");
-            currentHealth -= damage;
+            SetHealth(-damage);
             print(currentHealth);
 
             if (currentHealth <= 0)
             {
                 // Implement death or any other logic when health reaches 0
                 Die();
-            }
+            }  
+        }    
+    }
+
+    public void SetHealth(int healthChange){
+        currentHealth += healthChange;
+        healthBar.SetHealth(currentHealth);
+        if (currentHealth <= 0)
+        {
+            Die();
         }
+
     }
 
     private void Update()

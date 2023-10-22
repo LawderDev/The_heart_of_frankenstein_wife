@@ -6,16 +6,17 @@ public class HeartHealth : MonoBehaviour
 {
     public int maxHealth = 100;
     private int currentHealth;
-
+    [SerializeField] private HealthBarHeartUI healthBar;
     private void Start()
     {
         currentHealth = maxHealth;
+        healthBar.SetMaxHealth(currentHealth);
     }
 
     public void TakeDamage(int damage)
     {
         print("HEART : DAMAGED");
-        currentHealth -= damage;
+        SetHealth(-damage);
         print(currentHealth);
 
         if (currentHealth <= 0)
@@ -23,6 +24,16 @@ public class HeartHealth : MonoBehaviour
             // Implement death or any other logic when health reaches 0
             Die();
         }
+    }
+
+    public void SetHealth(int healthChange){
+        currentHealth += healthChange;
+        healthBar.SetHealth(currentHealth);
+        if (currentHealth <= 0)
+        {
+            Die();
+        }
+
     }
 
     private void Die()
