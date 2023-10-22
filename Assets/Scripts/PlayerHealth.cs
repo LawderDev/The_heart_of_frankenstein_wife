@@ -8,7 +8,7 @@ public class PlayerHealth : MonoBehaviour
     private int currentHealth;
     [SerializeField]
     private HealthBarPlayerUI healthBar;
-
+    public Transform playerPosition;
     private bool invincibility = false;
     private float cooldownInvincibility = Mathf.Infinity;
     private float invincibilityTime = 1f;
@@ -59,6 +59,9 @@ public class PlayerHealth : MonoBehaviour
         cooldownInvincibility += Time.deltaTime;
         if(cooldownInvincibility > invincibilityTime)
             setInvinsibility(false);
+        if (playerPosition.position.y < -20){
+            SetHealth(-99999);
+        }
     }
 
     private void Die()
