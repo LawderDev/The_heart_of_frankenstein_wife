@@ -36,6 +36,10 @@ public class HeartHealth : MonoBehaviour
 
     }
 
+    public int getHealth(){
+        return currentHealth;
+    }
+
     private void Die()
     {
         // Implement what should happen when the entity dies
