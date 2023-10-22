@@ -7,6 +7,9 @@ TagManager:
   - Undefined
   - TargetObject
   - Ennemy
+  - Ground
+  - Projectile
+  - Barricade
   layers:
   - Default
   - TransparentFX

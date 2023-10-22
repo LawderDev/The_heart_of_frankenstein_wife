@@ -8,7 +8,10 @@ public class PlayerAttack : MonoBehaviour
 
     [SerializeField] private Transform projectilePoint;
     [SerializeField] private GameObject[] projectiles;
-    
+
+    [SerializeField] private float attackTensionDecrementation;
+    [SerializeField] private float skillTensionDecrementation;
+    [SerializeField] private float ultiTensionDecrementation;
     private float cooldownAttackTimer = Mathf.Infinity;
     private float cooldownDashTimer = Mathf.Infinity;
     private float cooldownUltiTimer = Mathf.Infinity;
@@ -18,6 +21,7 @@ public class PlayerAttack : MonoBehaviour
     private BoxCollider2D dashCollider;
     private PlayerHealth playerHealth;
     private GameObject[] objectsWithTag;
+    private PlayerTension playerTension;
 
     [SerializeField] private bool canDash = true;
     [SerializeField] private bool isDashing = false;
@@ -39,6 +43,7 @@ public class PlayerAttack : MonoBehaviour
         playerHealth = GetComponent<PlayerHealth>();
         rb = GetComponent<Rigidbody2D>();
         colliders = GetComponents<BoxCollider2D>();
+        playerTension = GetComponent<PlayerTension>();
         foreach (BoxCollider2D collider in colliders)
         {
             if (collider.isTrigger)
@@ -95,7 +100,8 @@ public class PlayerAttack : MonoBehaviour
     }
 
     private void Skill()
-    {
+    {   
+        playerTension.decrementTension(skillTensionDecrementation);
         playerHealth.setInvinsibility(true);
         dashCollider.enabled = true;
         isDashing = true;
@@ -104,6 +110,8 @@ public class PlayerAttack : MonoBehaviour
 
     private void Ulti()
     {
+        playerTension.decrementTension(ultiTensionDecrementation);
+
         objectsWithTag = GameObject.FindGameObjectsWithTag("Ennemy");
         foreach (GameObject enemy in objectsWithTag)
         {
